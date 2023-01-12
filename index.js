@@ -1,20 +1,35 @@
 const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+const config = require("./config");
+
+const feedbackRoutes = require("./Routes/FeedbackRoutes");
+const userRoutes = require("./Routes/UserRoutes");
+const adminRoutes = require("./Routes/AdminRoutes");
+
 const app = express();
 
-const mail = require("./mail");
+app.use(cors());
+app.use(express.json());
 
-const sendPromoMail = async () => {
+app.use("/feedback", feedbackRoutes);
+app.use("/user", userRoutes);
+app.use("/admin", adminRoutes);
+
+async function connectToDb() {
+  mongoose.set("strictQuery", false);
+  mongoose.connect(config.MONGO_CONNECTION_STRING);
+}
+
+async function main() {
   try {
-    await mail.sendMail("cureu.ncristian@gmail.com", "Welcome", "promo", {
-      name: "Cristian",
+    await connectToDb();
+    app.listen(config.SERVER_PORT, () => {
+      console.log(`Backend app listening on port ${config.SERVER_PORT}`);
     });
   } catch (err) {
-    console.log(err);
+    console.log("index::main error", err.message);
   }
-};
+}
 
-// sendPromoMail();
-
-app.listen(5000, () => {
-  console.log("Server up!");
-});
+main();

@@ -4,6 +4,14 @@ const config = require("./config");
 const fs = require("fs");
 const path = require("path");
 
+const sendWelcomeEmail = (recipient, data) => {
+  sendMail(recipient, "Bun venit la Optidora", "welcome", data);
+};
+
+const sendFeedbackEmail = (recipient, data) => {
+  sendMail(recipient, "Bun venit la Optidora", "feedback", data);
+};
+
 const sendMail = (recipient, subject, templateName, data) => {
   const emailTemplate = fs.readFileSync(
     path.join(__dirname, `/Templates/${templateName}.handlebars`),
@@ -30,4 +38,4 @@ const sendMail = (recipient, subject, templateName, data) => {
   });
 };
 
-module.exports = { sendMail };
+module.exports = { sendWelcomeEmail, sendFeedbackEmail };
