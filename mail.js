@@ -9,7 +9,7 @@ const sendWelcomeEmail = (recipient, data) => {
 };
 
 const sendFeedbackEmail = (recipient, data) => {
-  sendMail(recipient, "Bun venit la Optidora", "feedback", data);
+  sendMail(recipient, "Feedback Optidora", "feedback", data);
 };
 
 const sendMail = (recipient, subject, templateName, data) => {
