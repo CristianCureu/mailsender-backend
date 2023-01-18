@@ -19,7 +19,10 @@ const create = async (req, res) => {
     const user = await User.findOne({ email: req.body.email });
     if (!user) {
       const data = await User.create(req.body);
-      await mail.sendWelcomeEmail(req.body.email, { nume: req.body.nume });
+      await mail.sendWelcomeEmail(req.body.email, {
+        nume: req.body.nume,
+        prenume: req.body.prenume,
+      });
       res.status(200).json({ succes: true, data });
     } else {
       res.status(500).json({

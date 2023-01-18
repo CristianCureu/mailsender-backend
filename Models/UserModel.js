@@ -6,6 +6,10 @@ const User = new Schema({
     required: true,
     type: String,
   },
+  prenume: {
+    required: true,
+    type: String,
+  },
   email: {
     required: true,
     type: String,

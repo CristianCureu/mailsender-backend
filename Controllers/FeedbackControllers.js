@@ -40,11 +40,18 @@ const create = async (req, res) => {
     if (!user) {
       await User.create({
         nume: req.body.nume,
+        prenume: req.body.prenume,
         email: req.body.email,
       });
-      await mail.sendWelcomeEmail(req.body.email, { nume: req.body.nume });
+      await mail.sendWelcomeEmail(req.body.email, {
+        nume: req.body.nume,
+        prenume: req.body.prenume,
+      });
     }
-    await mail.sendFeedbackEmail(req.body.email, { nume: req.body.nume });
+    await mail.sendFeedbackEmail(req.body.email, {
+      nume: req.body.nume,
+      prenume: req.body.prenume,
+    });
     res.status(201).json({ succes: true, data });
   } catch (err) {
     res.status(400).json({ success: false, message: err.message });
