@@ -12,6 +12,10 @@ const sendFeedbackEmail = (recipient, data) => {
   sendMail(recipient, "Feedback Optidora", "feedback", data);
 };
 
+const sendPromoEmail = (recipient, templateName, data) => {
+  sendMail(recipient, "Promotii Optidora", templateName, data);
+};
+
 const sendMail = (recipient, subject, templateName, data) => {
   const emailTemplate = fs.readFileSync(
     path.join(__dirname, `/Templates/${templateName}.handlebars`),
@@ -38,4 +42,4 @@ const sendMail = (recipient, subject, templateName, data) => {
   });
 };
 
-module.exports = { sendWelcomeEmail, sendFeedbackEmail };
+module.exports = { sendWelcomeEmail, sendFeedbackEmail, sendPromoEmail };
